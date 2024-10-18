@@ -55,6 +55,27 @@ class Trie {
     }
 }
 
+//navbar
+
+
+function showSection(section) {
+    const sections = ['similitud', 'patron', 'palindromo', 'autocomplete'];
+    if(section === 'similitud'){
+        buscarSimilitud();
+    }
+    if(section === 'palindromo'){
+        buscarPalindromo();
+    }
+
+    sections.forEach(sec => {
+        document.getElementById(`section-${sec}`).classList.add('hidden');
+    });
+    document.getElementById(`section-${section}`).classList.remove('hidden');
+}
+
+
+
+
 let text1 = '';
 let text2 = '';
 let autocompleteTrie = new Trie();
@@ -227,11 +248,13 @@ function buscarSimilitud() {
 
 // Algoritmo de Palíndromo (Manacher)
 function buscarPalindromo() {
-    const resultArea = document.getElementById('highlightedText');
+    console.log('Buscando palíndromo en el texto');
+    const resultArea = document.getElementById('highlightedTextPal');
     clearHighlights(resultArea);
 
     const palindromo = Manacher(text1);
     highlightMatches(text1, [[palindromo.start, palindromo.end]], 'highlight-green', resultArea);
+    console.log('Palíndromo encontrado:', text1.substring(palindromo.start, palindromo.end));
 }
 
 // Algoritmo LCS (simplificado)
