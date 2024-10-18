@@ -1,0 +1,1 @@
+Este es un ejemplo sencillo de texto que puedes usar para probar el autocompletado. Palabras como explorar, ejemplo, sencillo, y texto deberían aparecer en la lista de sugerencias.

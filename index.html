@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesador de Archivos de Texto</title>
+    <style>
+        .highlight-yellow {
+            background-color: yellow;
+        }
+        .highlight-blue {
+            background-color: blue;
+            color: white;
+        }
+        .highlight-green {
+            background-color: green;
+            color: white;
+        }
+        .txtBoxWrp {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        textarea {
+            width: 50%;
+            height: 200px;
+        }
+        #autocomplete-list {
+            border: 1px solid #ccc;
+            position: absolute;
+            background-color: white;
+            z-index: 1000;
+        }
+        #autocomplete-list div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        #autocomplete-list div:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Procesador de Archivos de Texto</h1>
+
+    <input type="file" id="fileInput1" accept=".txt" />
+    <input type="file" id="fileInput2" accept=".txt" />
+    <br><br>
+
+    <div class="txtBoxWrp">
+        <textarea id="fileContent1" placeholder="Texto 1..."></textarea>
+        <textarea id="fileContent2" placeholder="Texto 2..." disabled></textarea>
+    </div>
+    
+    <br><br>
+    <h2>Resultado de búsqueda</h2>
+
+    <!-- Nuevo div para mostrar el texto con los patrones resaltados -->
+    <div id="highlightedText" style="white-space: pre-wrap;"></div>
+
+    <br>
+
+    <div>
+        <input type="text" id="patternInput" placeholder="Buscar patrón...">
+        <button onclick="buscarPatron()">Buscar</button>
+    </div>
+    <br>
+
+    <button onclick="buscarSimilitud()">Similitud</button>
+    <button onclick="buscarPalindromo()">Palíndromo</button>
+    <br><br>
+
+    <h2>Resultado de Similitud</h2>
+    <div id="highlightedText1" style="white-space: pre-wrap;"></div>
+    <div id="highlightedText2" style="white-space: pre-wrap;"></div>
+
+    <div>
+        <input type="text" id="autocompleteInput" placeholder="Escribe para autocompletar...">
+        <div id="autocomplete-list"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
