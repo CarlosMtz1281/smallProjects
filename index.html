@@ -5,6 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Procesador de Archivos de Texto</title>
     <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5; 
+        }
+
+        h1 {
+            font-family: 'Raleway', sans-serif;
+            color: #333333;
+        }
+
+        input[type="file"], textarea {
+            color: #4a4a4a;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        button {
+            background-color: #3498DB; /* Azul eléctrico */
+            color: #ffffff; /* Texto blanco */
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5DADE2; /* Azul más claro en hover */
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+
+
+
         .highlight-yellow {
             background-color: yellow;
         }
@@ -87,7 +125,7 @@
         <div id="highlightedText" style="white-space: pre-wrap;"></div>
         <br>
         <div>
-            <input type="text" id="patternInput" placeholder="Buscar patrón...">
+            <input type="text" id="patternInput" placeholder="Buscar patrón..." style="width: 30%; height: 20px;">
             <button onclick="buscarPatron()">Buscar</button>
         </div>
     </div>
@@ -107,7 +145,7 @@
 
     <div id="section-autocomplete" class="hidden">
         <h2 id="autocompletarTitle">Autocompletar</h2>
-        <input type="text" id="autocompleteInput" placeholder="Escribe para autocompletar..." style="width: 30%;">
+        <input type="text" id="autocompleteInput" placeholder="Escribe para autocompletar..." style="width: 30%; height: 20px;">
         <div id="autocomplete-list"></div>
     </div>
 

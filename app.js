@@ -1,8 +1,22 @@
 // Implementación de Trie para autocompletar
 class TrieNode {
-    constructor() {
+    constructor(letter = null) {
+        this.letter = letter;
+        this.prevLetter = null;
         this.children = {};
         this.isEndOfWord = false;
+        this.originalWord = null;
+    }
+
+    // Método para reconstruir la palabra completa desde este nodo hacia la raíz
+    getWord() {
+        let node = this;
+        let wordLetters = [];
+        while (node.prevLetter) {
+            wordLetters.unshift(node.letter); 
+            node = node.prevLetter; 
+        }
+        return wordLetters.join(''); 
     }
 }
 
@@ -13,22 +27,29 @@ class Trie {
 
     insert(word) {
         let node = this.root;
-        for (let char of word) {
-            if (!node.children[char]) {
-                node.children[char] = new TrieNode();
+        for (let i = 0; i < word.length; i++) {
+            const currentLetter = word[i];
+            if (!node.children[currentLetter]) {
+                node.children[currentLetter] = new TrieNode(currentLetter);
+                node.children[currentLetter].prevLetter = node;
             }
-            node = node.children[char];
+            node = node.children[currentLetter];
+
+            if (i === word.length - 1) {
+                node.isEndOfWord = true;
+                node.originalWord = word;
+            }
         }
-        node.isEndOfWord = true;
     }
 
     searchPrefix(prefix) {
         let node = this.root;
-        for (let char of prefix) {
-            if (!node.children[char]) {
+        for (let i = 0; i < prefix.length; i++) {
+            const currentLetter = prefix[i];
+            if (!node.children[currentLetter]) {
                 return null;
             }
-            node = node.children[char];
+            node = node.children[currentLetter];
         }
         return node;
     }
@@ -36,21 +57,18 @@ class Trie {
     autocomplete(prefix) {
         let node = this.searchPrefix(prefix);
         let results = [];
-
         if (node) {
-            this.dfs(node, prefix, results);
+            this.dfs(node, results);
         }
-
         return results;
     }
 
-    dfs(node, prefix, results) {
+    dfs(node, results) {
         if (node.isEndOfWord) {
-            results.push(prefix);
+            results.push(node.originalWord);
         }
-
-        for (let char in node.children) {
-            this.dfs(node.children[char], prefix + char, results);
+        for (let child in node.children) {
+            this.dfs(node.children[child], results);
         }
     }
 }
@@ -91,7 +109,7 @@ document.getElementById('fileInput1').addEventListener('change', function(event)
         text1 = reader.result;
         document.getElementById('fileContent1').value = text1;
         autocompleteTrie = new Trie(); // Reiniciar el Trie
-        text1.split(/\W+/).forEach(word => autocompleteTrie.insert(word)); // Insertar palabras en el Trie
+        text1.split(/[^\p{L}]+/u).forEach(word => autocompleteTrie.insert(word));
     };
     reader.onerror = function() {
         console.error('FileReader error event triggered for fileInput1');
