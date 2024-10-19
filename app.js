@@ -60,9 +60,6 @@ class Trie {
 
 function showSection(section) {
     const sections = ['similitud', 'patron', 'palindromo', 'autocomplete'];
-    if(section === 'similitud'){
-        buscarSimilitud();
-    }
     if(section === 'palindromo'){
         buscarPalindromo();
     }
@@ -163,6 +160,7 @@ function buscarPatron() {
         const matches = KMP(text, pattern);
         highlightMatches(text, matches, 'highlight-yellow', document.getElementById('highlightedText'));
         console.log('Coincidencias encontradas:', matches.length);
+        document.getElementById('patronTitle').textContent = "Resultado de búsqueda en Texto 1";
     } else {
         console.log('No se proporcionó un patrón para buscar');
     }
@@ -221,6 +219,37 @@ function KMP(text, pattern) {
 }
 
 // PUNTO 2 LA SIMILITUD
+
+// verificar que exista un segundo texto
+const similarityBtn = document.getElementById('similarityBtn');
+similarityBtn.addEventListener('click', function() {
+    if (text2.trim() !== '' && text1.trim() !== '') {
+        buscarSimilitud();
+    } else {
+        similarityBtn.disabled = true;
+        console.log('No se encontraron dos textos para buscar similitud');
+    }
+});
+
+document.getElementById('fileInput2').addEventListener('change', function(event) {
+    let file = event.target.files[0];
+    if (!file) {
+        console.error('No file selected for fileInput2');
+        return;
+    }
+    let reader = new FileReader();
+    reader.onload = function() {
+        text2 = reader.result;
+        document.getElementById('fileContent2').value = text2;
+        document.getElementById('fileContent2').disabled = false; // Habilitar textarea para Similitud
+        similarityBtn.disabled = text2.trim() === ''; // Habilitar o deshabilitar el botón según el contenido
+    };
+    reader.onerror = function() {
+        console.error('FileReader error event triggered for fileInput2');
+    };
+    reader.readAsText(file);
+});
+
 
 // Algoritmo de Similitud (LCS)
 function buscarSimilitud() {

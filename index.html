@@ -56,8 +56,15 @@
 <body>
     <h1>Procesador de Archivos de Texto</h1>
 
-    <input type="file" id="fileInput1" accept=".txt" />
-    <input type="file" id="fileInput2" accept=".txt" />
+    <div style="display: flex; justify-content: space-between;">
+        <div style="flex-grow: 1; text-align: left;">
+            <input type="file" id="fileInput1" accept=".txt" />
+        </div>
+        <div style="flex-grow: 1; text-align: left;">
+            <input type="file" id="fileInput2" accept=".txt" />
+        </div>
+    </div>
+
     <br><br>
 
     <div class="txtBoxWrp">
@@ -69,14 +76,14 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <button onclick="showSection('similitud')">Similitud</button>
+        <button id='similarityBtn' disabled onclick="showSection('similitud')">Similitud</button>
         <button onclick="showSection('patron')">Patrón</button>
         <button onclick="showSection('palindromo')">Palíndromo</button>
         <button onclick="showSection('autocomplete')">Autocompletar</button>
     </div>
 
     <div id="section-patron" class="hidden">
-        <h2>Resultado de búsqueda</h2>
+        <h2 id="patronTitle">Ingresa patrón de búsqueda para Texto 1</h2>
         <div id="highlightedText" style="white-space: pre-wrap;"></div>
         <br>
         <div>
@@ -87,17 +94,20 @@
 
     <div id="section-similitud" class="hidden">
         <h2>Resultado de Similitud</h2>
+        <h3>Texto 1:</h3>
         <div id="highlightedText1" style="white-space: pre-wrap;"></div>
+        <h3>Texto 2:</h3>
         <div id="highlightedText2" style="white-space: pre-wrap;"></div>
     </div>
 
     <div id="section-palindromo" class="hidden">
-        <h2>Resultado de Palíndromo</h2>
+        <h2>Resultado de Palíndromo en Texto 1</h2>
         <div id="highlightedTextPal" style="white-space: pre-wrap;"></div>
     </div>
 
     <div id="section-autocomplete" class="hidden">
-        <input type="text" id="autocompleteInput" placeholder="Escribe para autocompletar...">
+        <h2 id="autocompletarTitle">Autocompletar</h2>
+        <input type="text" id="autocompleteInput" placeholder="Escribe para autocompletar..." style="width: 30%;">
         <div id="autocomplete-list"></div>
     </div>
 
