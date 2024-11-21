@@ -176,7 +176,11 @@ function buscarPatron() {
 
     if (pattern) {
         const matches = KMP(text, pattern);
-        highlightMatches(text, matches, 'highlight-yellow', document.getElementById('highlightedText'));
+        if(matches.length === 0){
+            highlightMatches('No se encontró el patrón.', matches, 'highlight-yellow', document.getElementById('highlightedText'));
+        }else{
+            highlightMatches(text, matches, 'highlight-yellow', document.getElementById('highlightedText'));
+        }
         console.log('Coincidencias encontradas:', matches.length);
         document.getElementById('patronTitle').textContent = "Resultado de búsqueda en Texto 1";
     } else {
